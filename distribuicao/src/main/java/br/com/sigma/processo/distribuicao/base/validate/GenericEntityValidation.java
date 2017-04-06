@@ -10,17 +10,10 @@ import br.com.sigma.processo.distribuicao.base.persistence.GenericPersistenceCla
 public interface GenericEntityValidation<PK extends Serializable, T extends GenericPersistenceClass<PK>> {
 
   /**
-   * Metodo responsável por validar constraints da entidade
+   * Metodo responsï¿½vel por validar constraints da entidade
    * 
    * @param object Valida as Uniques Constraints das Entidades
    */
   void validatePersist(@Valid T object) throws BusinessException;
-
-  /**
-   * Metodo responsável por validar status ativo
-   * 
-   * @param object Objeto que queremos validar
-   */
-  void validateActiveStatus(T object) throws BusinessException;
 
 }

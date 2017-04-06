@@ -20,20 +20,20 @@ import br.com.sigma.processo.distribuicao.util.text.ReflectionUtils;
 public abstract class GenericJPAEntityValidation<C extends Number, PK extends Serializable, T extends GenericPersistenceClass<PK>> extends GenericEntityValidationImpl<PK, T> {
 
   @PersistenceContext(unitName = Configuration.UNIT_NAME)
-  private EntityManager manager;
+  private EntityManager  manager;
 
-  private Class<T> clazz;
+  private final Class<T> clazz;
 
-  private Class<C> numberCountClass;
+  private final Class<C> numberCountClass;
 
-  public GenericJPAEntityValidation(Class<T> clazz, Class<C> numberCountClass) {
+  public GenericJPAEntityValidation(final Class<T> clazz, final Class<C> numberCountClass) {
     super();
     this.clazz = clazz;
     this.numberCountClass = numberCountClass;
   }
 
   @Override
-  protected void validateUniqueConstraints(T object) throws BusinessException {
+  protected void validateUniqueConstraints(final T object) throws BusinessException {
     validarUnicidadeCampos(object);
   }
 
@@ -43,11 +43,11 @@ public abstract class GenericJPAEntityValidation<C extends Number, PK extends Se
    * @param object Valida unicidade dos campos em entidade
    * @throws BusinessException
    */
-  private void validarUnicidadeCampos(T object) throws BusinessException {
-    Field[] fieldsAnotadosColumn = ReflectionUtils.getAnnotatedDeclaredFields(clazz, Column.class, true);
+  private void validarUnicidadeCampos(final T object) throws BusinessException {
+    final Field[] fieldsAnotadosColumn = ReflectionUtils.getAnnotatedDeclaredFields(clazz, Column.class, true);
 
-    for (Field field : fieldsAnotadosColumn) {
-      Column coluna = field.getAnnotation(Column.class);
+    for (final Field field : fieldsAnotadosColumn) {
+      final Column coluna = field.getAnnotation(Column.class);
 
       if (!coluna.unique()) {
         return;
@@ -65,19 +65,19 @@ public abstract class GenericJPAEntityValidation<C extends Number, PK extends Se
    * @param field Field que queremos validar
    * @throws BusinessException
    */
-  private void validarUnicidadeCampos(T object, Column coluna, Field field) throws BusinessException {
+  private void validarUnicidadeCampos(final T object, final Column coluna, final Field field) throws BusinessException {
     try {
       field.setAccessible(true);
       if (field.get(object) == null) {
         return;
       }
 
-      String columnName = field.getName();
+      final String columnName = field.getName();
 
-      Field fieldId = getIdField();
+      final Field fieldId = getIdField();
       fieldId.setAccessible(true);
 
-      StringBuilder builder = new StringBuilder("SELECT count(1) FROM " + clazz.getSimpleName());
+      final StringBuilder builder = new StringBuilder("SELECT count(1) FROM " + clazz.getSimpleName());
       builder.append(" WHERE ");
 
       if (field.getType().equals(String.class)) {
@@ -91,7 +91,7 @@ public abstract class GenericJPAEntityValidation<C extends Number, PK extends Se
       }
 
       int index = 1;
-      TypedQuery<C> queryCount = manager.createQuery(builder.toString(), numberCountClass);
+      final TypedQuery<C> queryCount = manager.createQuery(builder.toString(), numberCountClass);
 
       if (field.getType().equals(String.class)) {
         queryCount.setParameter(index++, StringUtils.upperCase(field.get(object).toString()));
@@ -103,7 +103,7 @@ public abstract class GenericJPAEntityValidation<C extends Number, PK extends Se
         queryCount.setParameter(index++, fieldId.get(object));
       }
 
-      C quantity = queryCount.getSingleResult();
+      final C quantity = queryCount.getSingleResult();
       if (quantity.longValue() > 0) {
         throw new BusinessException(StringUtils.join(new String[] {clazz.getSimpleName(), field.getName(), "duplicado"}, "."));
       }
@@ -113,7 +113,7 @@ public abstract class GenericJPAEntityValidation<C extends Number, PK extends Se
   }
 
   /**
-   * Metodo responsável por retornar o Field de ID
+   * Metodo responsÃ¡vel por retornar o Field de ID
    * 
    * @return Field de ID
    */
@@ -130,7 +130,6 @@ public abstract class GenericJPAEntityValidation<C extends Number, PK extends Se
       return idField[0];
     }
 
-    throw new IllegalArgumentException("Nenhum Field encontrado com as anotações Id e Embendable");
+    throw new IllegalArgumentException("Nenhum Field encontrado com as anotaï¿½ï¿½es Id e Embendable");
   }
-
 }

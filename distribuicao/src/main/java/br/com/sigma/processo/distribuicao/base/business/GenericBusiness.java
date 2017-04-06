@@ -8,7 +8,7 @@ import br.com.sigma.processo.distribuicao.base.persistence.GenericPersistenceCla
 import br.com.sigma.processo.distribuicao.base.validate.BusinessException;
 
 /**
- * Classe responsável por ter uum serviço de um tipo especifico
+ * Classe responsï¿½vel por ter uum serviï¿½o de um tipo especifico
  *
  * @author Juan Perondi
  *
@@ -19,16 +19,16 @@ import br.com.sigma.processo.distribuicao.base.validate.BusinessException;
 public interface GenericBusiness<PK extends Serializable, T extends GenericPersistenceClass<PK>, F extends GenericFilter> {
 
   /**
-   * Metodo responsável por filtrar
+   * Metodo responsï¿½vel por filtrar
    * 
    * @param filter Filter que queremos realizar
    * @return lista dos objetos encontrados
-   * @throws BusinessException 
+   * @throws BusinessException
    */
   List<T> filter(F filter) throws BusinessException;
 
   /**
-   * Retorna uma instancia com o ID passado por parâmetro
+   * Retorna uma instancia com o ID passado por parï¿½metro
    * 
    * @param id Id que queremos trabalhar
    * @return T com os valores encontrados
@@ -52,15 +52,7 @@ public interface GenericBusiness<PK extends Serializable, T extends GenericPersi
   T update(T t) throws BusinessException;
 
   /**
-   * Realiza a atualização de status
-   * 
-   * @param Lista dos Ts para realizar atualização em lote
-   * @return Lista atualizada
-   */
-  List<T> updateStatus(List<T> list) throws BusinessException;
-
-  /**
-   * Metodo responsável por fazer a contagem de informçoes que podem ser retornadas no filter
+   * Metodo responsï¿½vel por fazer a contagem de informï¿½oes que podem ser retornadas no filter
    * 
    * @param filter Filter que queremos mexer
    * @return Quantidade Encontrados
