@@ -7,14 +7,14 @@ import org.apache.commons.lang.StringUtils;
 import br.com.sigma.processo.distribuicao.base.filter.GenericFilter;
 
 /**
- * Classe respons·vel por ser o pai dos generators
+ * Classe respons√°vel por ser o pai dos generators
  *
  * @author Juan Perondi
  */
 public class RepresentColumnGenerator {
 
   /**
-   * Metodo respons·vel por verificar se existe um valor no objeto par ao field passado por
+   * Metodo respons√°vel por verificar se existe um valor no objeto par ao field passado por
    * parametro
    * 
    * @param fieldAnnotated Field anotado

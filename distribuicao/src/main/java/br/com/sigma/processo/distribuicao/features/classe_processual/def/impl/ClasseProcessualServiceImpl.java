@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import br.com.sigma.processo.distribuicao.base.service.GenericServiceImpl;
+import br.com.sigma.processo.distribuicao.base.validate.BusinessException;
 import br.com.sigma.processo.distribuicao.features.classe_processual.ClasseProcessualService;
 import br.com.sigma.processo.distribuicao.features.classe_processual.def.ClasseProcessual;
 import br.com.sigma.processo.distribuicao.features.classe_processual.def.ClasseProcessualDTO;
@@ -30,14 +31,10 @@ public class ClasseProcessualServiceImpl extends GenericServiceImpl<Integer, Cla
 
   private static final long serialVersionUID = 6831206113494397369L;
 
-  public ClasseProcessualServiceImpl() {
-    super(ClasseProcessualDTO.class);
-  }
-
   @Override
   @GET
   @Path("/{id}")
-  public ClasseProcessualDTO get(@PathParam("id") final Integer id) {
+  public ClasseProcessualDTO get(@PathParam("id") final Integer id) throws BusinessException {
     return super.get(id);
   }
 

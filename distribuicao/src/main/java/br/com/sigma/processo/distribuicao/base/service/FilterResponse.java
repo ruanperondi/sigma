@@ -6,7 +6,7 @@ import br.com.sigma.processo.distribuicao.base.dto.GenericDTO;
 import br.com.sigma.processo.distribuicao.base.filter.GenericFilter;
 
 /**
- * Classe responsável por armazenar informações de response ao usuário
+ * Classe responsÃ¡vel por armazenar informaï¿½ï¿½es de response ao usuï¿½rio
  *
  * @author Juan Perondi
  */
@@ -29,7 +29,7 @@ public class FilterResponse {
   }
 
   /**
-   * Método responsável por retornar o campo filter
+   * Mï¿½todo responsÃ¡vel por retornar o campo filter
    *
    * @return retorna o campo filter
    */
@@ -38,7 +38,7 @@ public class FilterResponse {
   }
 
   /**
-   * Método responsável por retornar o campo results
+   * Mï¿½todo responsÃ¡vel por retornar o campo results
    *
    * @return retorna o campo results
    */

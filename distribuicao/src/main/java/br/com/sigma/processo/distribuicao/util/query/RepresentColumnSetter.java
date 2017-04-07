@@ -11,14 +11,14 @@ import br.com.sigma.processo.distribuicao.base.validate.BusinessException;
 import br.com.sigma.processo.distribuicao.util.text.ReflectionUtils;
 
 /**
- * Classe respons·vel por setar o valor na query
+ * Classe respons√°vel por setar o valor na query
  *
  * @author Juan Perondi
  */
 public class RepresentColumnSetter extends RepresentColumnJPQL {
 
   /**
-   * Metodo respons·vel por setar valor na clausula
+   * Metodo respons√°vel por setar valor na clausula
    * 
    * @param clazz Classe que queremos trabalhar
    * @param typedQuery Query para setarmos
@@ -40,18 +40,18 @@ public class RepresentColumnSetter extends RepresentColumnJPQL {
         setClause(fieldAnnotated, filter, typedQuery);
       }
     } catch (IllegalArgumentException | IllegalAccessException e) {
-      throw new BusinessException("erro ao tentar ler as informaÁıes da entidade de filtro" + clazz);
+      throw new BusinessException("erro ao tentar ler as informa√ß√µes da entidade de filtro" + clazz);
     }
   }
 
   /**
-   * Metodo respons·vel por setar as informaÁıes na query
+   * Metodo respons√°vel por setar as informa√ß√µes na query
    * 
    * @param fieldAnnotated Campo que queremos etar
    * @param filter Filter para setar
-   * @param query Query que ser· setada
-   * @throws IllegalArgumentException ExceÁ„o faltando valor
-   * @throws IllegalAccessException exceÁ„o ao tentar acessar o valor
+   * @param query Query que ser√° setada
+   * @throws IllegalArgumentException Exce√ß√£o faltando valor
+   * @throws IllegalAccessException exce√ß√£o ao tentar acessar o valor
    */
   private static <T extends GenericFilter> void setClause(Field fieldAnnotated, T filter, Query query) throws IllegalArgumentException, IllegalAccessException {
     Object value = fieldAnnotated.get(filter);

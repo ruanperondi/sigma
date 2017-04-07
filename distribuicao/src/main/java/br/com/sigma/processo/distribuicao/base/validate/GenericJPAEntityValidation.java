@@ -20,7 +20,7 @@ import br.com.sigma.processo.distribuicao.util.text.ReflectionUtils;
 public abstract class GenericJPAEntityValidation<C extends Number, PK extends Serializable, T extends GenericPersistenceClass<PK>> extends GenericEntityValidationImpl<PK, T> {
 
   @PersistenceContext(unitName = Configuration.UNIT_NAME)
-  private EntityManager  manager;
+  protected EntityManager manager;
 
   private final Class<T> clazz;
 

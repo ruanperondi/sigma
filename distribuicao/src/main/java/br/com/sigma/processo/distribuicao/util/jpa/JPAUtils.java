@@ -1,4 +1,4 @@
-package br.com.sigma.processo.distribuicao.utils.jpa;
+package br.com.sigma.processo.distribuicao.util.jpa;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -49,13 +49,13 @@ public class JPAUtils {
 
     List<Field> fieldsClassMapped = ReflectionUtils.getAllFields(new LinkedList<Field>(), clazz);
     for (String string : columnsSelect) {
-      List<Field> collect = fieldsClassMapped.stream().filter(field -> StringUtils.equalsIgnoreCase(field.getName(), string)).collect(Collectors.toList());
+      List<Object> collect = fieldsClassMapped.stream().filter(field -> StringUtils.equalsIgnoreCase(field.getName(), string)).collect(Collectors.toList());
 
       if (CollectionUtils.isEmpty(collect)) {
         continue;
       }
 
-      Field field = collect.get(0);
+      Field field = (Field) collect.get(0);
       field.setAccessible(true);
       mapaAtributos.put(string, field);
     }

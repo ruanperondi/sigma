@@ -18,25 +18,27 @@ import br.com.sigma.processo.distribuicao.base.config.Configuration;
 import br.com.sigma.processo.distribuicao.base.filter.GenericFilter;
 import br.com.sigma.processo.distribuicao.base.persistence.GenericPersistenceClass;
 import br.com.sigma.processo.distribuicao.base.validate.BusinessException;
+import br.com.sigma.processo.distribuicao.util.jpa.JPAUtils;
 import br.com.sigma.processo.distribuicao.util.query.RepresentColumnJPQL;
 import br.com.sigma.processo.distribuicao.util.query.RepresentColumnSetter;
-import br.com.sigma.processo.distribuicao.utils.jpa.JPAUtils;
 
 /**
- * Classe responsável por utilizar o contrato do repositório pelo EntityManager
+ * Classe responsÃ¡vel por utilizar o contrato do repositï¿½rio pelo EntityManager
  *
  * @author Juan Perondi
  */
 public abstract class EntityManagerRepository<PK extends Serializable, T extends GenericPersistenceClass<PK>, F extends GenericFilter> implements GenericRepository<PK, T, F> {
 
   @PersistenceContext(unitName = Configuration.UNIT_NAME)
-  private EntityManager entityManager;
+  protected EntityManager entityManager;
 
   private Class<T> clazz;
 
   private Class<F> filterClass;
 
   private String columns;
+
+  private boolean isTipada;
 
   /**
    * Construtor da Classe
@@ -50,7 +52,7 @@ public abstract class EntityManagerRepository<PK extends Serializable, T extends
   }
 
   /**
-   * Metodo responsável por realizar uma pesquisa e retornar a quatidade de registros encontrados
+   * Metodo responsÃ¡vel por realizar uma pesquisa e retornar a quatidade de registros encontrados
    * 
    * @param filter Filtro que iremos utilizar
    * @return Quantidade de registros encontrados
@@ -68,12 +70,22 @@ public abstract class EntityManagerRepository<PK extends Serializable, T extends
   @Override
   @Transactional(value = TxType.REQUIRED)
   public List<T> filter(F filter) throws BusinessException {
-    Query typedQuery = entityManager.createQuery(generateJPQLFilter(filter));
+    Query typedQuery;
+
+    if (this.isTipada) {
+      typedQuery = entityManager.createQuery(generateJPQLFilter(filter), clazz);
+    } else {
+      typedQuery = entityManager.createQuery(generateJPQLFilter(filter));
+    }
 
     setParameters(typedQuery, filter);
 
     typedQuery.setMaxResults(filter.getLimit());
     typedQuery.setFirstResult(filter.getOffSet());
+
+    if (isTipada) {
+      return typedQuery.getResultList();
+    }
 
     return JPAUtils.convertToClass(clazz, typedQuery.getResultList(), this.columns);
   }
@@ -102,7 +114,7 @@ public abstract class EntityManagerRepository<PK extends Serializable, T extends
   }
 
   /**
-   * Metodo responsável por gerar um JPQL para utilizarmos no FIltro
+   * Metodo responsÃ¡vel por gerar um JPQL para utilizarmos no FIltro
    * 
    * @param filter Filtro que queremos utilizar
    * @return String com a JPQL gerada
@@ -114,18 +126,20 @@ public abstract class EntityManagerRepository<PK extends Serializable, T extends
 
   /**
    * Constroi o JPQL da Categoria. <br>
-   * Se os campo fields não for passado, então será considerado o campo whenEmpty
+   * Se os campo fields nï¿½o for passado, entï¿½o serï¿½ considerado o campo whenEmpty
    * 
    * @param fields Campos
    * @param list Campo utilizado quando construirmos o JPQL
    * @throws BusinessException
    */
-  private String buildJPQL(F filter, List<String> list, boolean countMode) throws BusinessException {
-    StringBuilder builder = new StringBuilder(" SELECT ");
+  protected String buildJPQL(F filter, List<String> list, boolean countMode) throws BusinessException {
+    StringBuilder builder = new StringBuilder();
+    if (!isTipada || countMode) {
+      builder.append(" SELECT ");
+      this.columns = getFields(filter, list, countMode);
+      builder.append(columns);
+    }
 
-    this.columns = getFields(filter, list, countMode);
-
-    builder.append(columns);
     builder.append(" FROM " + this.clazz.getSimpleName() + " ");
 
     String clause = RepresentColumnJPQL.jpqlClauseBuild(filterClass, filter);
@@ -141,12 +155,12 @@ public abstract class EntityManagerRepository<PK extends Serializable, T extends
   /**
    * Retorna o JPQL default para consulta
    * 
-   * @return JPQL padrão para a consulta
+   * @return JPQL padrï¿½o para a consulta
    */
   protected abstract List<String> getDefaultJPQL();
 
   /**
-   * Metodo responsável por gerar um JPQL para utilizarmos no FIltro
+   * Metodo responsÃ¡vel por gerar um JPQL para utilizarmos no FIltro
    * 
    * @param filter Filtro que queremos utilizar
    * @return String com a JPQL gerada
@@ -157,7 +171,7 @@ public abstract class EntityManagerRepository<PK extends Serializable, T extends
   }
 
   /**
-   * Metodo responsável por setar os parametros na Query
+   * Metodo responsÃ¡vel por setar os parametros na Query
    * 
    * @param typedQuery Query Tipada
    * @param filter Filtro para preenchermos a Query
@@ -169,8 +183,8 @@ public abstract class EntityManagerRepository<PK extends Serializable, T extends
 
   /**
    * Metodo que retorna os campos. <br>
-   * se for countMode irá retornar count(1), se os fields da Categoria forem preenchidos, entçao
-   * este será passado por parâmetro, senão serão aqueles definodos na variavel whenEmpty
+   * se for countMode irï¿½ retornar count(1), se os fields da Categoria forem preenchidos, entï¿½ao
+   * este serï¿½ passado por parï¿½metro, senï¿½o serï¿½o aqueles definodos na variavel whenEmpty
    * 
    * @param filter Filter para utilizarmos
    * @param list Quando for vazio
@@ -182,11 +196,16 @@ public abstract class EntityManagerRepository<PK extends Serializable, T extends
       return "count(1)";
     }
 
-    if (!StringUtils.isEmpty(filter.getFields())) {
-      return filter.getFields();
-    }
-
     return StringUtils.join(list.toArray(), ",");
+  }
+
+  /**
+   * Seta se a Query Ã© tipada ou nÃ£o
+   * 
+   * @param true se tipada
+   */
+  public void setTypedQuery(boolean isTipada) {
+    this.isTipada = isTipada;
   }
 
 }

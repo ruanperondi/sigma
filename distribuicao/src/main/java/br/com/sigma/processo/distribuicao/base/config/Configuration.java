@@ -1,7 +1,7 @@
 package br.com.sigma.processo.distribuicao.base.config;
 
 /**
- * Classe responsável por armazenar informações necessárias para a configuração do Sistema
+ * Classe responsÃ¡vel por armazenar informaï¿½ï¿½es necessï¿½rias para a configuraï¿½ï¿½o do Sistema
  *
  * @author Juan Perondi
  */

@@ -6,7 +6,7 @@ import br.com.sigma.processo.distribuicao.base.filter.GenericFilter;
 import br.com.sigma.processo.distribuicao.util.query.RepresentColumn;
 
 /**
- * Classe respons�vel por definir o que ser� utilizado como filtro para a categoria
+ * Classe respons�vel por definir o que ser� utilizado como filtro para a Classe Processual
  *
  * @author Juan Perondi
  */

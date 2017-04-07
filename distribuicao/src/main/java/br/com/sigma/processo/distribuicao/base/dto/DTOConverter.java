@@ -5,7 +5,7 @@ import java.io.Serializable;
 import br.com.sigma.processo.distribuicao.base.persistence.GenericPersistenceClass;
 
 /**
- * Classe responsável por realizar a conversão de um DTO para seu tipo
+ * Classe responsÃ¡vel por realizar a conversï¿½o de um DTO para seu tipo
  * persistente
  *
  * @author Juan Perondi

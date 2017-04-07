@@ -12,7 +12,7 @@ import br.com.sigma.processo.distribuicao.util.query.RepresentColumn;
 import br.com.sigma.processo.distribuicao.util.text.ReflectionUtils;
 
 /**
- * Classe responsável por gerar JPQL de uma coluna anotada com @RepresentColumn
+ * Classe responsÃ¡vel por gerar JPQL de uma coluna anotada com @RepresentColumn
  *
  * @author Juan Perondi
  */
@@ -45,24 +45,29 @@ public class RepresentColumnJPQL extends RepresentColumnGenerator {
 
       return StringUtils.join(clauses, " AND ");
     } catch (IllegalArgumentException | IllegalAccessException e) {
-      throw new BusinessException("erro ao tentar ler as informações da entidade de filtro" + clazz);
+      throw new BusinessException("erro ao tentar ler as informaï¿½ï¿½es da entidade de filtro" + clazz);
     }
   }
 
   /**
-   * Metodo responsável por gerar uma clausula JPQL de Filter
+   * Metodo responsÃ¡vel por gerar uma clausula JPQL de Filter
    * 
    * @param fieldAnnotated Campo anotado
    * @param filter Filter que queremos trabalhar
    * @return Valor gerado
-   * @throws IllegalArgumentException Exceção ao tentar acessar o argumento
-   * @throws IllegalAccessException Exceção ao tentar acessar o argumento
+   * @throws IllegalArgumentException Exceï¿½ï¿½o ao tentar acessar o argumento
+   * @throws IllegalAccessException Exceï¿½ï¿½o ao tentar acessar o argumento
    */
   private static <T extends GenericFilter> String generateClause(Field fieldAnnotated, T filter) throws IllegalArgumentException, IllegalAccessException {
     Object value = fieldAnnotated.get(filter);
 
     if (value == null) {
       return "";
+    }
+
+    RepresentColumn annotation = fieldAnnotated.getAnnotation(RepresentColumn.class);
+    if (!StringUtils.isEmpty(annotation.value())) {
+      return annotation.value() + "=:" + fieldAnnotated.getName();
     }
 
     if (fieldAnnotated.getGenericType() != String.class) {

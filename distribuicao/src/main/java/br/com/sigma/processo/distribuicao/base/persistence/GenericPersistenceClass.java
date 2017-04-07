@@ -13,7 +13,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.envers.Audited;
 
 /**
- * Classe abstrata respons�vel pela defini��o basica das classes do sistema
+ * Classe abstrata responsável pela definição basica das classes do sistema
  * 
  * @author Juan Perondi
  */
@@ -59,7 +59,7 @@ public abstract class GenericPersistenceClass<PK extends Serializable> {
   }
 
   /**
-   * M�todo respons�vel por retornar o campo
+   * M�todo responsável por retornar o campo
    *
    * @return retorna o campo Id
    */

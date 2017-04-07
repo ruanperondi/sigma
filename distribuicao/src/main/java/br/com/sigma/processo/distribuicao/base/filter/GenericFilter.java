@@ -5,7 +5,7 @@ import java.util.List;
 import javax.ws.rs.QueryParam;
 
 /**
- * Classe responsável por utilizar a base dos filtros
+ * Classe responsÃ¡vel por utilizar a base dos filtros
  *
  * @author Juan Perondi
  */
@@ -13,9 +13,6 @@ public class GenericFilter {
 
   @QueryParam("sort")
   private List<String> sort;
-
-  @QueryParam("fields")
-  private String fields;
 
   @QueryParam("limit")
   private Integer limit;
@@ -45,25 +42,7 @@ public class GenericFilter {
   }
 
   /**
-   * Método responsável por retornar o campo fields
-   *
-   * @return retorna o campo fields
-   */
-  public String getFields() {
-    return fields;
-  }
-
-  /**
-   * Seta o valor do parametro fields para o field fields
-   *
-   * @param fields valor para ser setado na variavel fields
-   */
-  public void setFields(String fields) {
-    this.fields = fields;
-  }
-
-  /**
-   * Método responsável por retornar o campo limit
+   * Mï¿½todo responsÃ¡vel por retornar o campo limit
    *
    * @return retorna o campo limit
    */
@@ -85,7 +64,7 @@ public class GenericFilter {
   }
 
   /**
-   * Método responsável por retornar o campo offSet
+   * Mï¿½todo responsÃ¡vel por retornar o campo offSet
    *
    * @return retorna o campo offSet
    */
@@ -107,7 +86,7 @@ public class GenericFilter {
   }
 
   /**
-   * Método responsável por retornar o campo count
+   * Mï¿½todo responsÃ¡vel por retornar o campo count
    *
    * @return retorna o campo count
    */

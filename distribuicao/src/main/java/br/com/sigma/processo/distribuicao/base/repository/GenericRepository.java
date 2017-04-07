@@ -10,7 +10,7 @@ import br.com.sigma.processo.distribuicao.base.persistence.GenericPersistenceCla
 import br.com.sigma.processo.distribuicao.base.validate.BusinessException;
 
 /**
- * Classe respons·vel por definir o contrato basico de todos as classes que tiverem acesso ao um
+ * Classe respons√°vel por definir o contrato basico de todos as classes que tiverem acesso ao um
  * repositorio
  *
  * @author Juan Perondi
@@ -18,7 +18,7 @@ import br.com.sigma.processo.distribuicao.base.validate.BusinessException;
 public interface GenericRepository<PK extends Serializable, T extends GenericPersistenceClass<PK>, F extends GenericFilter> {
 
   /**
-   * Metodo respons·vel por realizar uma pesquisa
+   * Metodo respons√°vel por realizar uma pesquisa
    * 
    * @param filter Filtro que iremos utilizar
    * @return Lista dos objetos encontrados
@@ -27,7 +27,7 @@ public interface GenericRepository<PK extends Serializable, T extends GenericPer
   public List<T> filter(F filter) throws BusinessException;
 
   /**
-   * Metodo respons·vel por realizar uma pesquisa e retornar a quatidade de registros encontrados
+   * Metodo respons√°vel por realizar uma pesquisa e retornar a quatidade de registros encontrados
    * 
    * @param filter Filtro que iremos utilizar
    * @return Quantidade de registros encontrados
@@ -36,7 +36,7 @@ public interface GenericRepository<PK extends Serializable, T extends GenericPer
   public Long count(F filter) throws BusinessException;
 
   /**
-   * Recupera uma informaÁ„o do Banco de Dados
+   * Recupera uma informaÔøΩÔøΩo do Banco de Dados
    * 
    * @param id Id que estamos procurando
    * @return entidade encontrada
@@ -44,7 +44,7 @@ public interface GenericRepository<PK extends Serializable, T extends GenericPer
   public T get(PK id);
 
   /**
-   * Salva uma informaÁ„o do Banco de Dados
+   * Salva uma informaÔøΩÔøΩo do Banco de Dados
    * 
    * @param T entidade que queremos persistir
    * @return entidade encontrada
@@ -52,7 +52,7 @@ public interface GenericRepository<PK extends Serializable, T extends GenericPer
   public T save(@Valid T entity);
 
   /**
-   * Edita uma informaÁ„o no Banco de Dados
+   * Edita uma informaÔøΩÔøΩo no Banco de Dados
    * 
    * @param T entidade que queremos persistir
    * @return entidade encontrada

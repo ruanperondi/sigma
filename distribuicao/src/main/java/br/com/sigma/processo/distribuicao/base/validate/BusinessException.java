@@ -1,7 +1,7 @@
 package br.com.sigma.processo.distribuicao.base.validate;
 
 /**
- * Classe responsável por considerar exceções relacioadas a regra de negócio
+ * Classe responsÃ¡vel por considerar exceï¿½ï¿½es relacioadas a regra de negï¿½cio
  *
  * @author Juan Perondi
  */

@@ -12,11 +12,11 @@ import br.com.sigma.processo.distribuicao.base.repository.GenericRepository;
 import br.com.sigma.processo.distribuicao.base.validate.BusinessException;
 import br.com.sigma.processo.distribuicao.base.validate.GenericEntityValidation;
 
-public class GenericBusinessImpl<PK extends Serializable, T extends GenericPersistenceClass<PK>, F extends GenericFilter> implements GenericBusiness<PK, T, F> {
+public abstract class GenericBusinessImpl<PK extends Serializable, T extends GenericPersistenceClass<PK>, F extends GenericFilter> implements GenericBusiness<PK, T, F> {
 
   @Inject
   @Any
-  private GenericRepository<PK, T, F>    repository;
+  private GenericRepository<PK, T, F> repository;
 
   @Inject
   @Any
@@ -40,7 +40,7 @@ public class GenericBusinessImpl<PK extends Serializable, T extends GenericPersi
       return t;
     }
 
-    throw new BusinessException("nao.encontrado");
+    throw new BusinessException("ID " + id + " não encontrado!");
   }
 
   @Override

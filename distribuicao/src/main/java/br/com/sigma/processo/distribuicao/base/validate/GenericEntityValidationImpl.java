@@ -7,7 +7,7 @@ import javax.validation.Valid;
 import br.com.sigma.processo.distribuicao.base.persistence.GenericPersistenceClass;
 
 /**
- * Classe respons�vel por utilizar a valida��o generica para alguns campos
+ * Classe responsável por utilizar a valida��o generica para alguns campos
  *
  * @author Juan Perondi
  */
@@ -30,14 +30,14 @@ public abstract class GenericEntityValidationImpl<PK extends Serializable, T ext
   }
 
   /**
-   * Metodo respons�vel por validar a inativa��o de um registro
+   * Metodo responsável por validar a inativa��o de um registro
    * 
    * @param object Objeto que queremos validar
    */
   protected abstract void validateDeactivate(T object) throws BusinessException;
 
   /**
-   * Metodo respons�vel por validar a ativa��o de um registro
+   * Metodo responsável por validar a ativa��o de um registro
    * 
    * @param object Objeto que queremos validar
    */
@@ -58,7 +58,7 @@ public abstract class GenericEntityValidationImpl<PK extends Serializable, T ext
   protected abstract void validateBusinessUpdate(T object) throws BusinessException;
 
   /**
-   * Metodo respons�vel por validar Constraints unicas
+   * Metodo responsável por validar Constraints unicas
    * 
    * @param object Valida Constraints Unicas
    * @throws BusinessException

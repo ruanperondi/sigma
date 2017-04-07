@@ -5,7 +5,7 @@ import java.io.Serializable;
 import br.com.sigma.processo.distribuicao.base.persistence.GenericPersistenceClass;
 
 /**
- * Classe respons�vel por definir um contrato de DTO entre o Servi�o e o Business
+ * Classe responsável por definir um contrato de DTO entre o serviçoo e o Business
  *
  * @author Juan Perondi
  *
@@ -17,7 +17,7 @@ public abstract class GenericDTO<PK extends Serializable, T extends GenericPersi
   private PK id;
 
   /**
-   * M�todo respons�vel por retornar o campo id
+   * M�todo responsável por retornar o campo id
    *
    * @return retorna o campo id
    */

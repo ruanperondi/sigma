@@ -30,9 +30,19 @@ public class ClasseProcessual extends GenericPersistenceClass<Integer> {
   @GeneratedValue(strategy = GenerationType.TABLE, generator = "classe_processual_id")
   private Integer id;
 
-  @Column(unique = true, nullable = false, length = 40)
+  @Column(unique = true, nullable = false, length = 70)
   @NotBlank(message = "{classe_processual.nome.obrigatorio}")
-  private String  nome;
+  private String nome;
+
+  /**
+   * Construtor da Classe
+   * 
+   * @param id
+   */
+  public ClasseProcessual(Integer id) {
+    super();
+    this.id = id;
+  }
 
   /**
    * Construtor da Classe

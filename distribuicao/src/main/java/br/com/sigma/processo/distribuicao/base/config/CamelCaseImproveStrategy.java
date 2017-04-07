@@ -7,7 +7,7 @@ import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
 import br.com.sigma.processo.distribuicao.util.text.NamingFormat;
 
 /**
- * Classe responsável por utilizar a strategia de conversão de Camel Case para
+ * Classe responsÃ¡vel por utilizar a strategia de conversï¿½o de Camel Case para
  * underscore
  *
  * @author Juan Perondi
