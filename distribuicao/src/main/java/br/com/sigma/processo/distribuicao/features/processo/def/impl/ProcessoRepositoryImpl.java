@@ -75,30 +75,30 @@ public class ProcessoRepositoryImpl implements ProcessoRepository {
   @Transactional(value = TxType.REQUIRED)
   private Vara getCompetenciaMenorQuantidadeProcessos(Competencia competencia, Comarca comarca) throws SQLException {
     try (Connection cn = dataSource.getConnection()) {
-      StringBuilder builder = new StringBuilder();
+      final StringBuilder builder = new StringBuilder();
 
-      builder.append(" SELECT VARA_COMPETENCIA.id_comarca, VARA_COMPETENCIA.nome_vara, VARA_COMPETENCIA.id_classe_processual, COUNT(PROCESSO.numero_processo_unico) FROM VARA_COMPETENCIA ");
-      builder.append(" LEFT JOIN  ");
-      builder.append(" 	PROCESSO on VARA_COMPETENCIA.id_comarca = PROCESSO.id_comarca AND  ");
-      builder.append("     VARA_COMPETENCIA.id_classe_processual = PROCESSO.id_classe_processual AND ");
-      builder.append("     VARA_COMPETENCIA.nome_vara = PROCESSO.nome_vara ");
-      builder.append(" WHERE VARA_COMPETENCIA.id_comarca=? ");
-      builder.append(" GROUp BY VARA_COMPETENCIA.id_comarca, VARA_COMPETENCIA.nome_vara,VARA_COMPETENCIA.id_classe_processual ");
-      builder.append(" ORDER BY 4, VARA_COMPETENCIA.nome_vara asc ");
 
-      PreparedStatement stmt = cn.prepareStatement(builder.toString());
-      stmt.setInt(1, comarca.getId());
+      builder.append(" select ");
+      builder.append("     va.id_comarca, va.nome_vara, va.id_classe_processual, va.nome_competencia , (select count(processo.numero_processo_unico) from processo where va.id_comarca = processo.id_comarca AND processo.nome_vara = va.nome_vara)");
+      builder.append(" from vara_competencia va");
+      builder.append(" 	where upper(va.nome_competencia)=?");
+      builder.append(" AND id_comarca = ?");
+      builder.append(" order by 5,1 asc");
 
-      ResultSet rs = stmt.executeQuery();
+      final PreparedStatement stmt = cn.prepareStatement(builder.toString());
+      stmt.setString(1, StringUtils.upperCase(competencia.getNome()));
+      stmt.setInt(2, comarca.getId());
+
+      final ResultSet rs = stmt.executeQuery();
       rs.next();
 
-      String nomeVara = rs.getString(2);
-      Integer idClasseProcessual = rs.getInt(3);
+      final String nomeVara = rs.getString(2);
+      final Integer idClasseProcessual = rs.getInt(1);
 
       competencia.setClasseProcessual(new ClasseProcessual(idClasseProcessual));
       competencia.setId(new CompetenciaPK(idClasseProcessual, competencia.getNome()));
 
-      Vara v = new Vara();
+      final Vara v = new Vara();
       v.setComarca(comarca);
       v.setNome(nomeVara);
 
