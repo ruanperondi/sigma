@@ -77,26 +77,23 @@ public class ProcessoRepositoryImpl implements ProcessoRepository {
     try (Connection cn = dataSource.getConnection()) {
       StringBuilder builder = new StringBuilder();
 
-      builder.append(" SELECT VARA_COMPETENCIA.id_comarca, VARA_COMPETENCIA.nome_competencia, VARA_COMPETENCIA.nome_vara, VARA_COMPETENCIA.id_classe_processual, COUNT(PROCESSO.numero_processo_unico) FROM VARA_COMPETENCIA ");
+      builder.append(" SELECT VARA_COMPETENCIA.id_comarca, VARA_COMPETENCIA.nome_vara, VARA_COMPETENCIA.id_classe_processual, COUNT(PROCESSO.numero_processo_unico) FROM VARA_COMPETENCIA ");
       builder.append(" LEFT JOIN  ");
-      builder.append(" 	PROCESSO on VARA_COMPETENCIA.nome_competencia = PROCESSO.nome_competencia AND  ");
-      builder.append("     VARA_COMPETENCIA.id_comarca = PROCESSO.id_comarca AND  ");
+      builder.append(" 	PROCESSO on VARA_COMPETENCIA.id_comarca = PROCESSO.id_comarca AND  ");
       builder.append("     VARA_COMPETENCIA.id_classe_processual = PROCESSO.id_classe_processual AND ");
       builder.append("     VARA_COMPETENCIA.nome_vara = PROCESSO.nome_vara ");
       builder.append(" WHERE VARA_COMPETENCIA.id_comarca=? ");
-      builder.append(" AND upper(VARA_COMPETENCIA.nome_competencia)=? ");
-      builder.append(" GROUp BY VARA_COMPETENCIA.id_comarca, VARA_COMPETENCIA.nome_competencia, VARA_COMPETENCIA.nome_vara,VARA_COMPETENCIA.id_classe_processual ");
-      builder.append(" ORDER BY 5, VARA_COMPETENCIA.id_comarca asc ");
+      builder.append(" GROUp BY VARA_COMPETENCIA.id_comarca, VARA_COMPETENCIA.nome_vara,VARA_COMPETENCIA.id_classe_processual ");
+      builder.append(" ORDER BY 4, VARA_COMPETENCIA.nome_vara asc ");
 
       PreparedStatement stmt = cn.prepareStatement(builder.toString());
       stmt.setInt(1, comarca.getId());
-      stmt.setString(2, StringUtils.upperCase(competencia.getNome()));
 
       ResultSet rs = stmt.executeQuery();
       rs.next();
 
-      String nomeVara = rs.getString(3);
-      Integer idClasseProcessual = rs.getInt(4);
+      String nomeVara = rs.getString(2);
+      Integer idClasseProcessual = rs.getInt(3);
 
       competencia.setClasseProcessual(new ClasseProcessual(idClasseProcessual));
       competencia.setId(new CompetenciaPK(idClasseProcessual, competencia.getNome()));
